@@ -1,0 +1,66 @@
+import persona.*
+import planeta.*
+
+describe "Test de Planetas" {
+	
+	const triton = new Planeta()
+	const paleas = new Planeta()
+	
+	const julieta = new PersonaGenerica(edad = 42)
+	const ana = new Atleta(edad = 25)
+	const rosa = new Atleta(edad = 45, cantidadDeTecnicas = 8)
+	const perla = new Atleta(edad = 28, cantidadDeTecnicas = 4, masaMuscular = 6)
+	const monica = new Docente(edad = 45, cantidadDeCursos = 6)
+	const luisa = new Docente(edad = 35, cantidadDeCursos = 1)
+	
+	method initialize() {
+		
+		triton.ingresarPersona(julieta)
+		triton.ingresarPersona(ana)
+		triton.ingresarPersona(rosa)
+		triton.ingresarPersona(perla)
+		triton.ingresarPersona(monica)
+		triton.ingresarPersona(luisa)
+	}
+	
+	test "Ana, Mónica y Rosa son las diplomatiacs" {
+		
+		assert.equals(#{ana, monica, rosa}, triton.delegacionDiplomatica())
+	}
+	
+	test "El valor inicial de defensa es 2" {
+		
+		assert.equals(2, triton.valorInicialDefensa())
+	}
+	
+	test "Tritón no es un planeta culto" {
+		
+		assert.notThat(triton.esCulto())
+	}
+	
+	test "La potencia real es de 184" {
+		
+		assert.equals(184, triton.potenciaReal())
+	}
+	
+	test "Hacer que todos tributen" {
+		
+		triton.recibirTributos()
+		
+		assert.equals(6, triton.longitudMurallas())
+		assert.equals(2, triton.museos())
+	}
+	
+	test "Ana, Rosa, Perla y Mónica son las personas valiosas" {
+		
+		assert.equals(#{ana, rosa, perla, monica}, triton.habitantesValiosos())
+	}
+	
+	test "Apaciguar a Paleas" {
+		
+		triton.apaciguarPlaneta(paleas)
+		
+		assert.equals(6, paleas.longitudMurallas())
+		assert.equals(1, paleas.museos())
+	}
+}

@@ -1,0 +1,41 @@
+import persona.*
+import armas.*
+
+describe "Test de armas" {
+	
+	const soldado1 = new Soldado(edad= 50)
+	const soldado2 = new Soldado(edad= 24)
+	
+	const pistolete = new Pistolete(largo = 8)
+	const espadon = new Espadon(peso = 20)
+	
+	test "Pistolete de 8cm le otorga 24 de potencia a soldado1" {
+		
+		soldado1.agregarArma(pistolete)
+	
+		assert.equals(44, soldado1.potencia())
+	}
+	
+	test "Pistolete de 8cm le otorga 16 de potencia a soldado2" {
+		
+		soldado2.agregarArma(pistolete)
+	
+		assert.equals(36, soldado2.potencia())
+	}
+	
+	test "Espadon de 20kg le otorga 6 de potencia a soldado1" {
+		
+		soldado1.agregarArma(espadon)
+	
+		assert.equals(26, soldado1.potencia())
+	}
+	
+	test "Espadon de 20kg le otorga 10 de potencia a soldado2" {
+		
+		soldado2.agregarArma(espadon)
+	
+		assert.equals(30, soldado2.potencia())
+	}
+	
+	
+}

@@ -1,21 +1,76 @@
-import Personas.*
+import persona.*
 
-class Planeta{
+class Planeta {
+	const property habitantes = #{}
+	var property museos = 0
+	var property longitudMurallas = 0
 	
-	const property cantHabitantes = #{}
-	const cantaMuseos  = 0
-	
-	method  delegacionDiplomatica(){
-		cantHabitantes.filter({hab=>hab.esDestacada()}) 
+	method ingresarPersona(persona) {
+		return habitantes.add(persona)
 	}
-	method valorInicialDeDefensa(){
-		cantHabitantes.count({hab=>hab.potencia()>= 30})
+	
+	method construirMuralla(cantidad) {
+		longitudMurallas += cantidad
 	}
-	method esCulto()= cantaMuseos <= 2 or cantHabitantes.inteligencia()<= 10
 	
-	method potenciaReal()= cantHabitantes.sum({s=>s. potencia()})
+	method fundarMuseo() {
+		museos++
+	}
 	
+	method delegacionDiplomatica() {
+		return habitantes.filter({
+			h => h.esDestacada()
+		}) 
+	}
 	
+	method valorInicialDefensa() {
+		return habitantes.count({
+			h => h.potencia() > 30
+		})
+	}
 	
+	method hay10DeIntMinimo() {
+		return habitantes.all({
+			h => h.inteligencia() >= 10
+		}) 
+	}
+	
+	method esCulto() {
+		return museos > 2 and self.hay10DeIntMinimo()
+	}
+	
+	method potenciaReal() {
+		return habitantes.sum({
+			h => h.potencia()
+		})
+	}
+	
+	method potenciaAparente() {
+		return habitantes.max({
+			h => h.potencia() * habitantes.size()
+		})
+	}
+	
+	method necesitaReforzarse() {
+		return self.potenciaAparente() > self.potenciaReal() * 2
+	}
+	
+	method recibirTributos() {
+		return habitantes.forEach({
+			h => h.darTributos(self)
+		})
+	}
+	
+	method habitantesValiosos() {
+		return habitantes.filter({
+			h => h.valor() >= 40
+		})
+	}
+	
+	method apaciguarPlaneta(planeta) {
+		return self.habitantesValiosos().forEach({
+			h => h.darTributos(planeta)
+		})
+	}
 	
 }
